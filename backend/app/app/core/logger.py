@@ -41,6 +41,7 @@ DEFAULT_CONFIG: dict = {
     },
     "loggers": {
         "alembic.runtime.migration" : {"handlers": ["alembic"], "level": "WARNING", "propagate": False},
+        "sqlalchemy.dialects.postgresql" : {"handlers": ["alembic"], "level": "INFO", "propagate": False},
         "sqlalchemy.engine.Engine" : {"handlers": ["alembic"], "level": "INFO", "propagate": False},
         "flask.logger": {"handlers": ["access"], "level": "DEBUG", "propagate": False},
         "wsgi.error": {"level": "INFO"},

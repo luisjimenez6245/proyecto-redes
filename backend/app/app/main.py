@@ -1,11 +1,15 @@
 from flask import Flask, request
 from werkzeug.exceptions import HTTPException
-from core.config import settings
 from routes import blueprints
-from core.logger import logger
+from db import database
 from orjson import dumps
+from core.logger import logger
+from core.config import settings
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = settings.db_url
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+database.init_app(app)
 app.name = settings.app_name
 app.config.from_object(settings)
 
@@ -18,7 +22,7 @@ def app_name():
     return {"app_name":settings.app_name}
 
 @app.errorhandler(HTTPException)
-def handle_exception(e):
+def handle_exception(e: HTTPException):
     logger.error(e)
     response = e.get_response()
     response.data = dumps({

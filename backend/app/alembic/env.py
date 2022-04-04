@@ -25,6 +25,7 @@ fileConfig(config.config_file_name)
 from core.config import settings
 from db import database
 import logging.config
+from models import  *
 from core.logger import logger
 
 target_metadata = database.metadata
