@@ -1,10 +1,25 @@
-from db import database
-from uuid import UUID
+from datetime import datetime
+from db import MainMeta
+import ormar as orm
+from .types import UserType
+import uuid
 
-class User(database.Model):
-    id:UUID = database.Column(database.String(36), primary_key=True)
-    name:str = database.Column(database.String(80), nullable=False)
-    description:str = database.Column(database.String(255), nullable=False)
-    status:str = database.Column(database.String(80), nullable=False)
-    created_at:str = database.Column(database.DateTime, nullable=False)
-    updated_at:str = database.Column(database.DateTime, nullable=False)
+class User(orm.Model):
+
+    id: uuid.UUID = orm.UUID(name="user_id", primary_key=True,default = uuid.uuid4)
+    name: str = orm.String(max_length=100)
+    username: str = orm.String(max_length=100, nullable=True, unique=True, index=True)
+    phone: str = orm.String(max_length=20, default = "", index = True)
+    email: str = orm.String(max_length=254, default = "", index= True)
+    password: str = orm.Text(default = "")
+    created_at: str = orm.DateTime(default = datetime.utcnow)
+    type: UserType = orm.ForeignKey(
+        UserType, nullable = False, ondelete='CASCADE', onupdate='CASCADE'
+    )
+    is_active: bool = orm.Boolean(default = True)
+
+    class Meta(MainMeta):
+        tablename = "users"
+
+    async def load_data(self):
+        return self

@@ -1,7 +1,9 @@
-from flask import Blueprint
+from fastapi import APIRouter
+
+from . import utils
 from . import health_check
 
-action_blueprint  = Blueprint("actions", __name__, url_prefix="/actions")
+router = APIRouter()
 
-
-action_blueprint.register_blueprint(health_check.router)
+router.include_router(utils.router)
+router.include_router(health_check.router)

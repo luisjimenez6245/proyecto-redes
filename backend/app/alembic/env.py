@@ -23,12 +23,13 @@ fileConfig(config.config_file_name)
 # for 'autogenerate' support
 
 from core.config import settings
-from db import database
+from models import db_config
 import logging.config
-from models import  *
-from core.logger import logger
+from fastapi_helpers import get_logger_default_config
 
-target_metadata = database.metadata
+logging.config.dictConfig(get_logger_default_config(settings))
+
+target_metadata = db_config.metadata
 
 # set your url here or import from settings
 # note that by default url is in saved sqlachemy.url variable in alembic.ini file

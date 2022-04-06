@@ -1,10 +1,16 @@
-from flask import Blueprint
-from .actions import action_blueprint
-from .model import model_blueprint
+from fastapi.security import OAuth2PasswordBearer
 
-api_blueprint = Blueprint("api", __name__, url_prefix="/api")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-api_blueprint.register_blueprint(action_blueprint)
-api_blueprint.register_blueprint(model_blueprint)
 
-blueprints = [api_blueprint]
+from .models import router_models
+from .models.types import router_model_types
+from .actions import router as router_actions
+from .webhooks import router_webhooks
+
+routers = [
+    router_actions,
+    router_models,
+    router_model_types,
+    router_webhooks,
+]

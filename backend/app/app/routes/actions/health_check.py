@@ -1,9 +1,8 @@
-from flask import Blueprint
+from typing import Dict
+from fastapi import APIRouter
 
-router = Blueprint("health_check", __name__, url_prefix="health_check")
+router = APIRouter()
 
-@router.get("/")
-def health_check():
-    return {
-        "status": "OK"
-    }
+@router.get("/health-check")
+def health_check() -> Dict[str, str]:
+    return {"status": "healthy"}

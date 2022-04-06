@@ -1,12 +1,13 @@
 from utils import env_path
-from pydantic import BaseSettings
+from fastapi_helpers import DefaultSettings
 from typing import Optional
 
-class Settings(BaseSettings):
+
+class Settings(DefaultSettings):
     app_name = "proyecto-redes"
-    node_host:str = "0.0.0.0"
+    db_url: str
     port:Optional[str] = "80"
-    db_url:str 
-    debug:bool = True
+    version:str = "0.0.0.1"
+
 
 settings = Settings(env_path)

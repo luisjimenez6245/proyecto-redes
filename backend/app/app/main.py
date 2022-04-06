@@ -1,37 +1,59 @@
-from flask import Flask, request
-from werkzeug.exceptions import HTTPException
-from routes import blueprints
-from db import database
-from orjson import dumps
-from core.logger import logger
+import logging.config
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi_helpers import get_logger_default_config
 from core.config import settings
+from core.logger import logger
+from db.config import db_config
+from routes import routers
+from fastapi_helpers import HeadersMiddleware
 
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = settings.db_url
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
-database.init_app(app)
-app.name = settings.app_name
-app.config.from_object(settings)
+logging.config.dictConfig(get_logger_default_config(settings))
 
-for blueprint in blueprints:
-    app.register_blueprint(blueprint)
+app = FastAPI(
+    title= settings.app_name,
+    version=settings.version,
+    on_startup=[db_config.connect_db],
+    on_shutdown=[db_config.disconnect_db],
+    openapi_url=settings.get_open_api_path(),   
+)
+
+app.add_middleware(
+    HeadersMiddleware,
+    headers={
+        "Access-Control-Allow-Headers": "Authorization, Content-Type, X-Gitlab-Token, X-Gitlab-Event",
+    },
+    logger=logger,
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+    expose_headers=[
+        "Access-Control-Allow-Headers",
+        "X-Process-Time",
+    ]
+)
+
+for route in routers:
+    app.include_router(route)
 
 
 @app.get("/")
-def app_name():
-    return {"app_name":settings.app_name}
+async def root():
+    v = app.title
+    return {"app": v, "version": settings.version}
 
-@app.errorhandler(HTTPException)
-def handle_exception(e: HTTPException):
-    logger.error(e)
-    response = e.get_response()
-    response.data = dumps({
-        "code": e.code,
-        "name": e.name,
-        "description": e.description,
-    })
-    response.content_type = "application/json"
-    return response
 
-if __name__ == '__main__':
-    app.run(host=settings.node_host,port=settings.port, debug=settings.debug)
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        reload=settings.is_development(),
+        port=int(settings.port),
+        workers=4
+    )
