@@ -5,3 +5,4 @@ from .Interface import Interface
 from .Report import Report
 from .User import User
 from .Package import Package
+from .Session import Session

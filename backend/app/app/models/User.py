@@ -6,7 +6,7 @@ import uuid
 
 class User(orm.Model):
 
-    id: uuid.UUID = orm.UUID(name="user_id", primary_key=True,default = uuid.uuid4)
+    id: uuid.UUID = orm.UUID(primary_key=True,default = uuid.uuid4)
     name: str = orm.String(max_length=100)
     username: str = orm.String(max_length=100, nullable=True, unique=True, index=True)
     phone: str = orm.String(max_length=20, default = "", index = True)
