@@ -1,5 +1,9 @@
 [
     {
+        "name" : "user_types",
+        "crud": "types.user_types"
+    },
+    {
         "name" : "user",
         "crud": "user_crud"
     }

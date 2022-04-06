@@ -3,6 +3,9 @@ import HomeLayout from 'components/Home'
 import { LoadingBar } from 'finalsa-react-components'
 import redux from 'reducers/utils/Redux'
 import NotFound from 'pages/404'
+import Users from 'pages/Users'
+import Devices from 'pages/Devices'
+
 import { Route, Switch } from 'react-router'
 
 function Home(props) {
@@ -48,7 +51,16 @@ function Home(props) {
         <>
             <HomeLayout path={selectedPath} user={user} logout={logout}>
                 <Switch>
-                
+                    <Route path={`${path}/users`}>
+                        <Users
+                            setActualPage={setSelectedPath}
+                        ></Users>
+                    </Route>
+                    <Route path={`${path}/devices`}>
+                        <Devices
+                            setActualPage={setSelectedPath}
+                        ></Devices>
+                    </Route>
                     <Route>
                         <NotFound
                             setActualPage={setSelectedPath}

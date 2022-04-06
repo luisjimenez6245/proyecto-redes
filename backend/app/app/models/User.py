@@ -20,4 +20,5 @@ class User(orm.Model):
         tablename = "users"
 
     async def load_data(self):
+        await self.type.load()
         return self

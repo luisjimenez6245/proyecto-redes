@@ -16,8 +16,12 @@ class UserCrud(BaseCrud):
     async def create(self, model_in: Optional[Union[Dict, User]]) -> Optional[User]:
         model_in = to_dict(model_in)
         user_type_name = model_in.pop('type', None)
-        user_type = await UserType.objects.get_or_create(name=user_type_name)
-        model_in['type'] = user_type
+        if isinstance(user_type_name,str):
+            user_type = await UserType.objects.get_or_create(name=user_type_name)
+            model_in['type'] = user_type
+        elif isinstance(user_type_name, dict):
+            user_type = await UserType.objects.get_or_create(name=model_in["name"], description = model_in["description"])
+            model_in['type'] = user_type
         return await super().create(model_in)
 
 crud = UserCrud(User)

@@ -2,16 +2,28 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
 import User from 'actions/User'
+import UserType from 'actions/UserType'
+import Device from 'actions/Device'
 
 import Defs from 'actions/helpers/Defs'
 
 const user = new User();
+const device = new Device();
+const userType = new UserType();
 
 
 const actions = [  
     {
         className: User,
         object: user
+    },
+    {
+        className: UserType,
+        object: userType
+    },
+    {
+        className: Device,
+        object: device
     },
     ...Defs
 ]
