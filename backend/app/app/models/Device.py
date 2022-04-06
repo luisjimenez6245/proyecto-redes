@@ -1,6 +1,5 @@
 from datetime import datetime
 import ormar as orm
-import uuid
 from db import MainMeta
 from .User import User
 from typing import List
@@ -9,7 +8,7 @@ from .relations import DeviceUser
 
 class Device(orm.Model):
 
-    id: uuid.UUID = orm.UUID(primary_key=True, default=uuid.uuid4)
+    id: int  = orm.Integer(primary_key=True)
     name: str = orm.String(max_length=100, nullable=False)
     model: str = orm.String(max_length=100, nullable=True)
     os: str = orm.String(max_length=20, nullable=False)

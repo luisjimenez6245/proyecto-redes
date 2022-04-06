@@ -5,7 +5,7 @@ from db import MainMeta
 
 class DeviceUser(orm.Model):
 
-    id: uuid.UUID = orm.UUID(primary_key=True, default=uuid.uuid4)
+    id: str = orm.String(primary_key=True, default=uuid.uuid4, max_length=36)
     privilage: int = orm.Integer(nullable=False, default = 0)
 
 

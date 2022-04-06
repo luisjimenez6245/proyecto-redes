@@ -2,11 +2,10 @@ from datetime import datetime
 from db import MainMeta
 import ormar as orm
 from .types import UserType
-import uuid
 
 class User(orm.Model):
 
-    id: uuid.UUID = orm.UUID(primary_key=True,default = uuid.uuid4)
+    id: int  = orm.Integer(primary_key=True)
     name: str = orm.String(max_length=100)
     username: str = orm.String(max_length=100, nullable=True, unique=True, index=True)
     email: str = orm.String(max_length=254, default = "", index= True)

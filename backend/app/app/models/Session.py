@@ -1,11 +1,10 @@
 from datetime import datetime
 from db import MainMeta
 import ormar as orm
-import uuid
 from .User import User
 
 class Session(orm.Model):
-    id: uuid.UUID = orm.UUID(primary_key=True, default=uuid.uuid4)
+    id: int  = orm.Integer(primary_key=True)
     user:User = orm.ForeignKey(User, ondelete='CASCADE', onupdate='CASCADE')
     created_at: datetime = orm.DateTime(default=datetime.utcnow)
     valid_from: datetime = orm.DateTime(default=datetime.utcnow)
