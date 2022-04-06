@@ -1,6 +1,8 @@
-from typing import Optional
+from typing import Optional, Union, Dict
+from fastapi_helpers import to_dict
 from fastapi_helpers import BaseCrud
 from models import User
+from models.types import UserType
 
 class UserCrud(BaseCrud):
 
@@ -10,5 +12,12 @@ class UserCrud(BaseCrud):
             return result
         result = await self.model.objects.get_or_none(email=username)
         return result
+
+    async def create(self, model_in: Optional[Union[Dict, User]]) -> Optional[User]:
+        model_in = to_dict(model_in)
+        user_type_name = model_in.pop('type', None)
+        user_type = await UserType.objects.get_or_create(name=user_type_name)
+        model_in['type'] = user_type
+        return await super().create(model_in)
 
 crud = UserCrud(User)

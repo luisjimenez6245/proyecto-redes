@@ -1,0 +1,1 @@
+from .user_type_crud import crud as user_type_crud

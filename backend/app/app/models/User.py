@@ -9,7 +9,6 @@ class User(orm.Model):
     id: uuid.UUID = orm.UUID(primary_key=True,default = uuid.uuid4)
     name: str = orm.String(max_length=100)
     username: str = orm.String(max_length=100, nullable=True, unique=True, index=True)
-    phone: str = orm.String(max_length=20, default = "", index = True)
     email: str = orm.String(max_length=254, default = "", index= True)
     password: str = orm.Text(default = "")
     created_at: str = orm.DateTime(default = datetime.utcnow)

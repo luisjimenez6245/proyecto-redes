@@ -1,0 +1,6 @@
+[
+    {
+        "name" : "user",
+        "crud": "user_crud"
+    }
+]
