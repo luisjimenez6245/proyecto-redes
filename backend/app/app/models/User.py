@@ -15,6 +15,7 @@ class User(orm.Model):
         UserType, nullable = False, ondelete='CASCADE', onupdate='CASCADE'
     )
     is_active: bool = orm.Boolean(default = True)
+    privilege: int  = orm.Integer(default = 0)
 
     class Meta(MainMeta):
         tablename = "users"

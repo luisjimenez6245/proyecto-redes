@@ -1,7 +1,7 @@
 [
     {
         "name" : "user_types",
-        "crud": "types.user_types"
+        "crud": "types.user_type_crud"
     },
     {
         "name" : "user",

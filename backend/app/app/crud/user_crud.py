@@ -1,3 +1,4 @@
+from asyncio.log import logger
 from typing import Optional, Union, Dict
 from fastapi_helpers import to_dict
 from fastapi_helpers import BaseCrud
@@ -22,6 +23,10 @@ class UserCrud(BaseCrud):
         elif isinstance(user_type_name, dict):
             user_type = await UserType.objects.get_or_create(name=model_in["name"], description = model_in["description"])
             model_in['type'] = user_type
-        return await super().create(model_in)
+        user =  await super().create(model_in)
+        if user_type.name == 'admin':
+            pass
+        # carga usuarios ssh
+        return user
 
 crud = UserCrud(User)
