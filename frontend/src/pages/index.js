@@ -12,6 +12,9 @@ function MainPage() {
             <Route path="/home">
               <Home></Home>
             </Route>
+            <Route path="/topoly">
+              <Topology></Topology>
+            </Route>
             <Route path="/login" exact>
               <Login />
             </Route>
