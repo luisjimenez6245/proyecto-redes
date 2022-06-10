@@ -2,198 +2,27 @@ import React, { useCallback, useEffect, useState } from "react";
 import Graph from "react-graph-vis";
 import { reduxProperties } from "reducers/utils/Redux";
 
-function Topology() {
-  const info = [
-    [
-      {
-        hostname: "R3",
-        interfaces: [
-          {
-            name: "FastEthernet1/0",
-            ip: "10.0.3.254",
-            netmask: "255.255.255.0",
-            idnet: "10.0.3.0/24",
-          },
-          {
-            name: "FastEthernet1/1",
-            ip: "10.0.1.254",
-            netmask: "255.255.255.0",
-            idnet: "10.0.1.0/24",
-          },
-          {
-            name: "Ethernet2/0",
-            ip: "10.0.7.254",
-            netmask: "255.255.255.0",
-            idnet: "10.0.7.0/24",
-          },
-        ],
-      },
-      {
-        hostname: "R2",
-        interfaces: [
-          {
-            name: "FastEthernet0/0",
-            ip: "10.0.2.254",
-            netmask: "255.255.255.0",
-            idnet: "10.0.2.0/24",
-          },
-          {
-            name: "FastEthernet1/0",
-            ip: "10.0.3.253",
-            netmask: "255.255.255.0",
-            idnet: "10.0.3.0/24",
-          },
-          {
-            name: "FastEthernet1/1",
-            ip: "10.0.8.254",
-            netmask: "255.255.255.0",
-            idnet: "10.0.8.0/24",
-          },
-          {
-            name: "Ethernet2/0",
-            ip: "10.0.6.254",
-            netmask: "255.255.255.0",
-            idnet: "10.0.6.0/24",
-          },
-        ],
-      },
-      {
-        hostname: "R1",
-        interfaces: [
-          {
-            name: "FastEthernet0/0",
-            ip: "10.0.2.253",
-            netmask: "255.255.255.0",
-            idnet: "10.0.2.0/24",
-          },
-          {
-            name: "FastEthernet1/1",
-            ip: "10.0.1.253",
-            netmask: "255.255.255.0",
-            idnet: "10.0.1.0/24",
-          },
-          {
-            name: "Ethernet2/0",
-            ip: "10.0.5.254",
-            netmask: "255.255.255.0",
-            idnet: "10.0.5.0/24",
-          },
-        ],
-      },
-      {
-        hostname: "R4",
-        interfaces: [
-          {
-            name: "FastEthernet1/1",
-            ip: "10.0.8.253",
-            netmask: "255.255.255.0",
-            idnet: "10.0.8.0/24",
-          },
-        ],
-      },
-    ],
-    ["R3-R2:10.0.3.0", "R3-R1:10.0.1.0", "R2-R1:10.0.2.0", "R2-R4:10.0.8.0"],
-    {
-      R3: {
-        "FastEthernet1/0": "10.0.3.254/24",
-        "FastEthernet1/1": "10.0.1.254/24",
-        "Ethernet2/0": "10.0.7.254/24",
-      },
-      R2: {
-        "FastEthernet0/0": "10.0.2.254/24",
-        "FastEthernet1/0": "10.0.3.253/24",
-        "FastEthernet1/1": "10.0.8.254/24",
-        "Ethernet2/0": "10.0.6.254/24",
-      },
-      R1: {
-        "FastEthernet0/0": "10.0.2.253/24",
-        "FastEthernet1/1": "10.0.1.253/24",
-        "Ethernet2/0": "10.0.5.254/24",
-      },
-      R4: {
-        "FastEthernet1/1": "10.0.8.253/24",
-      },
-    },
-    [
-      {
-        "10.0.7.10": "Unix-OS 0",
-      },
-      {
-        "10.0.7.254": "Cisco_Router_IOS 0",
-      },
-      {
-        "10.0.3.254": "Cisco_Router_IOS 0",
-      },
-      {
-        "10.0.3.253": "Cisco_Router_IOS 1",
-      },
-      {
-        "10.0.1.253": "Cisco_Router_IOS 1",
-      },
-      {
-        "10.0.1.254": "Cisco_Router_IOS 0",
-      },
-      {
-        "10.0.2.254": "Cisco_Router_IOS 1",
-      },
-      {
-        "10.0.2.253": "Cisco_Router_IOS 1",
-      },
-      {
-        "10.0.8.254": "Cisco_Router_IOS 1",
-      },
-      {
-        "10.0.8.253": "Cisco_Router_IOS 2",
-      },
-      {
-        "10.0.6.254": "Cisco_Router_IOS 1",
-      },
-      {
-        "10.0.2.254": "Cisco_Router_IOS 1",
-      },
-      {
-        "10.0.2.253": "Cisco_Router_IOS 1",
-      },
-      {
-        "10.0.5.254": "Cisco_Router_IOS 1",
-      },
-    ],
-    [
-      {
-        ip_1: "10.0.3.253",
-        interface_1: "FastEthernet1/0",
-        host_1: "R2",
-        ip_2: "10.0.3.254",
-        interface_2: "FastEthernet1/0",
-        host_2: "R3",
-      },
-      {
-        ip_1: "10.0.1.253",
-        interface_1: "FastEthernet1/1",
-        host_1: "R1",
-        ip_2: "10.0.1.254",
-        interface_2: "FastEthernet1/1",
-        host_2: "R3",
-      },
-      {
-        ip_1: "10.0.2.253",
-        interface_1: "FastEthernet0/0",
-        host_1: "R1",
-        ip_2: "10.0.2.254",
-        interface_2: "FastEthernet0/0",
-        host_2: "R2",
-      },
-      {
-        ip_1: "10.0.8.253",
-        interface_1: "FastEthernet1/1",
-        host_1: "R4",
-        ip_2: "10.0.8.254",
-        interface_2: "FastEthernet1/1",
-        host_2: "R2",
-      },
-    ],
-    "10.0.7.254",
-  ];
+function Topology({get_topology}) {
+  const [info, setInfo] = useState(null)
+  let loadInfo = useCallback( () => {
+      let callback = (res) =>{
+        if(res.ok){
+          setInfo(res.body)
+        }
+      }
+      get_topology(callback)
+    }, [get_topology] 
+  )
+  useEffect(() => {
+    loadInfo()
+  }, [loadInfo])
+
+  
+  if(!info){
+    return (
+      <></>
+    )
+  }
   const nodesHost = info[0].map((host) => ({
     id: host.hostname,
     label: host.hostname,
