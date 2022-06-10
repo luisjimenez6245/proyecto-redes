@@ -87,6 +87,7 @@ class Auth extends Action {
     }
 
     get_topology(callback) {
+        let params = {}
         return this.request(
             "POST", "get_topology2", "",
             params, callback);
