@@ -86,6 +86,13 @@ class Auth extends Action {
             params, onLogout, this.onLogout);
     }
 
+    get_topology(callback) {
+        let params = {}
+        return this.request(
+            "POST", "get_topology2", "",
+            params, callback);
+    }
+
     onLogin = (data) => ({
         type: `${this.id}_LOGIN`,
         data: data
