@@ -23,7 +23,6 @@ app.add_middleware(
     headers={
         "Access-Control-Allow-Headers": "Authorization, Content-Type, X-Gitlab-Token, X-Gitlab-Event",
     },
-    logger=logger,
 )
 
 app.add_middleware(

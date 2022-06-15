@@ -1,7 +1,11 @@
 from typing import Dict, List
+from models.Device import Device
 import netifaces
 from netmiko import (
-    ConnectHandler, NetmikoAuthenticationException, NetmikoTimeoutException)
+    ConnectHandler,
+    NetmikoAuthenticationException,
+    NetmikoTimeoutException
+)
 from .remote_connection import commandAllRouters, telnetConexion, sshConexion, upSSh, neighborsSSH
 try:
     from core.logger import logger
@@ -17,6 +21,70 @@ class Router:
 
     def __str__(self) -> str:
         return f"{self.destination_host} ({self.management_ip})"
+
+
+def snmp_commands_create():
+    cmd = [
+        "conf t",
+        "snmp-server view v3Read iso included",
+        "snmp-server view v3Write iso include",
+        "snmp-server group REDES v3 auth read v3Read write v3Write",
+        "snmp-server contact elferpro@gmail.com",
+        "snmp-server location salonredes",
+        f"snmp-server user admin REDES v3 auth sha administrador_snmp priv des56 administrador_snmp",
+        "end"]
+    return cmd
+
+
+def snmp_commands_update_location(location):
+    cmd = [
+        "conf t",
+        "snmp-server view v3Read iso included",
+        "snmp-server view v3Write iso include",
+        f"snmp-server location {location}",
+        "end"]
+    return cmd
+
+
+def snmp_commands_update_contact(contact):
+    cmd = [
+        "conf t",
+        "snmp-server view v3Read iso included",
+        "snmp-server view v3Write iso include",
+        f"snmp-server contact {contact}",
+        "end"]
+    return cmd
+    
+
+def snmp_commands_update_hostname(hostname):
+    cmd = [
+        "conf t",
+        f"hostname {hostname}",
+        "end"]
+    return cmd
+
+async def update_router_snmp(router_id, type, value):
+    router = await Device.objects.get(id=router_id)
+    cmd = []
+    if(type == 'location'):
+        cmd = snmp_commands_update_location(value)
+        router.location = value
+    elif(type == 'contact'):
+        cmd = snmp_commands_update_contact(value)
+        router.contact = value
+    elif(type == 'hostname'):
+        cmd = snmp_commands_update_hostname(value)
+        router.hostname = value
+
+    await router.update()
+    sshConexion({
+        "host": getGateway(),
+        "username": "cisco",
+        "password": "cisco",
+        "device_type": "cisco_ios",
+        "secret": "cisco",
+        "ip": router.ip,
+    }, cmd)
 
 
 def show_dcp(ip: str,  child_ips: List[Router] = None) -> List[Router]:
@@ -159,7 +227,7 @@ def comandsOSPF(list):
     listIp = []
     listIp = list
     for ip in listIp:
-        commandsOspf.append("network "+ip+" " + "0.0.0.255 "+" area 0")
+        commandsOspf.append("network "+ip+" 0.0.0.255 "+" area 0")
     commandsOspf.append("exit")
     # sshConexion(user,commandsRip)
     return commandsOspf
@@ -321,8 +389,11 @@ def downOspf(user):
     commandAllRouters(user, ["conf terminal", "no router ospf 1"])
 
 
+def set_snmp(user):
+    commandAllRouters(user, snmp_commands_create())
+
 
 def getGateway():
-    gws=netifaces.gateways()
-    gateway=gws['default'][netifaces.AF_INET][0]
+    gws = netifaces.gateways()
+    gateway = gws['default'][netifaces.AF_INET][0]
     return gateway

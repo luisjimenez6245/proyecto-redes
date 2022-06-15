@@ -2,7 +2,7 @@ from typing import Optional
 from orjson import dumps
 from fastapi import Response
 from crud import user_crud, session_crud
-from models import User, Session
+from models import User, Session, Report
 from secrets import token_urlsafe
 from datetime import datetime, timedelta
 
@@ -32,6 +32,13 @@ async def login(username: str, password: str):
         session = await session_crud.create(session)
         await session.user.load()
         await session.user.type.load()
+        r = Report(
+            action=f"User login {user.name}",
+            created_date=datetime.utcnow(),
+        )
+        await Report.save(r)
+        from core.controllers.email_controller import send_email
+        send_email(r.action)
         return session
     return None
 

@@ -19,14 +19,13 @@ class UserCrud(BaseCrud):
         user_type_name = model_in.pop('type', None)
         if isinstance(user_type_name,str):
             user_type = await UserType.objects.get_or_create(name=user_type_name)
-            model_in['type'] = user_type
+            model_in['type'] = 1
+
         elif isinstance(user_type_name, dict):
             user_type = await UserType.objects.get_or_create(name=model_in["name"], description = model_in["description"])
             model_in['type'] = user_type
         user =  await super().create(model_in)
-        if user_type.name == 'admin':
-            pass
-        # carga usuarios ssh
+       
         return user
 
 crud = UserCrud(User)
