@@ -6,7 +6,6 @@ from datetime import datetime
 class Report(orm.Model):
 
     id: int  = orm.Integer(primary_key=True)
-    user: User = orm.ForeignKey(User, ondelete='CASCADE', onupdate='CASCADE')
     action: str = orm.String(max_length=100, nullable=False)
     created_date: datetime = orm.DateTime(default=datetime.utcnow)
 

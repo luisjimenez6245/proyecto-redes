@@ -2,7 +2,7 @@ from operator import ne
 import netmiko
 from pexpect import TIMEOUT, pxssh
 import pexpect
-from netmiko import ConnectHandler, NetMikoAuthenticationException, NetmikoBaseException, NetmikoTimeoutException
+from netmiko import ConnectHandler, NetMikoAuthenticationException, NetmikoTimeoutException
 
 
 #device es la configuracion del dispositivo
@@ -93,7 +93,7 @@ def sshAllRouters(user):
             
     
 
-def commandAllRouters(user:dict ,commands, should_ignore = None):
+def commandAllRouters(user:dict, commands, should_ignore = None):
     
     if should_ignore is None:
         should_ignore = []

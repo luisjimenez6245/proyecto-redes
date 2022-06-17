@@ -5,7 +5,7 @@ from typing import Optional
 
 class Settings(DefaultSettings):
     app_name = "proyecto-redes"
-    db_url: str
+    db_url: str = "sqlite:///database.db"
     port:Optional[str] = "80"
     version:str = "0.0.0.1"
 
