@@ -8,7 +8,7 @@ function DeviceDetails(props) {
 
     const [data, setData] = useState(null)
     const { id } = props.match.params
-    const { getDeviceDetails } = props
+    const { getDeviceDetails, saveSnmp } = props
 
     let loadData = useCallback(() => {
         let callback = (res) => {
@@ -48,6 +48,7 @@ function DeviceDetails(props) {
                             ></LoadingBar>
                         ) : (
                             <Details
+				saveChanges={saveSnmp}
                                 data={data}
                             ></Details>
                         )

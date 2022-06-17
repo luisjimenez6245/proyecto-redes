@@ -48,20 +48,20 @@ function DeviceList(props) {
 
     const cols = [
         {
-            selector: 'devicename',
-            name: "Usuario"
+            selector: 'hostname',
+            name: "hostName"
         },
         {
             selector: 'name',
             name: "Nombre"
         },
         {
-            selector: 'email',
-            name: "Correo"
+            selector: 'location',
+            name: "Ubicacion"
         },
         {
-            selector: 'type.name',
-            name: "Rol"
+            selector: 'contact',
+            name: "Contact"
         },
     ]
 

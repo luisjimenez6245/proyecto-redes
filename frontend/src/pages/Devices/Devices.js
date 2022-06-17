@@ -6,10 +6,10 @@ import Form from './Form'
 import List from './List'
 
 function DevicesPage(props) {
-    const { setActualPage, getDevicePagination, getDeviceDetails, getDeviceList, saveDevice, deleteDevice, setDevice, } = props
+    const { setActualPage, saveSnmp, getDevicePagination, getDeviceDetails, getDeviceList, saveDevice, deleteDevice, setDevice, } = props
     const { path } = props.match
 
-    const devices = { getDevicePagination, getDeviceDetails, getDeviceList, saveDevice, deleteDevice, setDevice, }
+    const devices = { saveSnmp, getDevicePagination, getDeviceDetails, getDeviceList, saveDevice, deleteDevice, setDevice, }
     let onReturn = () => {
         props.history.replace(`${path}`);
     }

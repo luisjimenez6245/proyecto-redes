@@ -89,8 +89,15 @@ class Auth extends Action {
     get_topology(callback) {
         let params = {}
         return this.request(
-            "POST", "get_topology2", "",
+            "POST", "network/get_topology2", "",
             params, callback);
+    }
+
+    saveSnmp(body, callback){
+	let params = {}
+	return this.request(
+	  "POST", "snmp/update", "", body, callback
+	)
     }
 
     onLogin = (data) => ({

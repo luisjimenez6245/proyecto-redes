@@ -1,5 +1,40 @@
+import React,  { useState } from "react"
+
+
 function DeviceDetails(props) {
-    const { data } = props
+
+   const { data } = props
+
+    const [ inputData, setInputData ] = useState({
+	type  : "contact",
+	value : "",
+	id : data.id,
+    })
+
+   let selectOnChange = (e) => {
+        let newData = {
+      ...inputData
+}
+        newData.type = e.target.value
+      setInputData(newData)
+  }
+
+
+  let textOnChange = (e) => {
+        let newData = { 
+      ...inputData
+}       
+        newData.value = e.target.value
+      setInputData(newData)
+}
+
+        let buttonOnClick = () => {
+        console.log(inputData)
+        props.saveChanges(inputData)        
+}
+
+   if(!inputData)
+        return (<></>)
     return (
         <>
             <div className="columns is-multiline">
@@ -20,12 +55,12 @@ function DeviceDetails(props) {
                 <div className="column is-half">
                     <div className="field">
                         <label className="label">
-                            Usuario
-                        </label>
+                            HostName
+                       </label>
                         <div className="control">
                             <input type="text"
                                 className="input"
-                                value={data.user_name}
+                                value={data.hostname}
                             >
                             </input>
                         </div>
@@ -34,12 +69,12 @@ function DeviceDetails(props) {
                 <div className="column is-half">
                     <div className="field">
                         <label className="label">
-                            Usuario
+                            Ubicacion
                         </label>
                         <div className="control">
                             <input type="text"
                                 className="input"
-                                value={data.phone}
+                                value={data.location}
                             >
                             </input>
                         </div>
@@ -48,18 +83,59 @@ function DeviceDetails(props) {
                 <div className="column is-half">
                     <div className="field">
                         <label className="label">
-                            Usuario
+                            Contacto
                         </label>
                         <div className="control">
                             <input type="text"
                                 className="input"
-                                value={data.email}
+                                value={data.contact}
                             >
                             </input>
                         </div>
                     </div>
                 </div>
             </div>
+	   <div className="columns is-multiline">
+		<div className="column is-half">
+                    <div className="field">
+                        <label className="label">
+                            Tipo
+                        </label>
+                        <div className="control">
+                            <select name="type" id="type" value={inputData.type} onChange={(e) => { selectOnChange(e) }}>
+  				<option value="contact">contacto</option>
+  				<option value="hostname">hostname</option>
+  				<option value="location">ubicacion</option>
+			    </select>
+                        </div>
+                    </div>
+                </div>
+		<div className="column is-half">
+                    <div className="field">
+                        <label className="label">
+                            Valor
+                        </label>
+                        <div className="control">
+                            <input type="text"
+                                className="input"
+                                value={inputData.value}
+                                onChange={ (e)  => { textOnChange(e)}}
+                            >
+                            </input>
+                        </div>
+                    </div>
+                </div>
+		<div className="column is-half">
+                    <div className="field">
+                        <label className="label">
+                            Valor
+                        </label>
+                        <div className="control">
+                            <input type="button" onClick={ (e) => {buttonOnClick(e)}}  value ="subir" />
+                        </div>
+                    </div>
+                </div>
+	   </div>
         </>
     )
 }

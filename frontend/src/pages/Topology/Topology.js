@@ -1,21 +1,19 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Graph from "react-graph-vis";
-import { reduxProperties } from "reducers/utils/Redux";
+import  reduxProperties from "reducers/utils/Redux";
 
 function Topology({get_topology}) {
   const [info, setInfo] = useState(null)
-  let loadInfo = useCallback( () => {
-      let callback = (res) =>{
-        if(res.ok){
-          setInfo(res.body)
-        }
-      }
-      get_topology(callback)
-    }, [get_topology] 
-  )
+  
   useEffect(() => {
-    loadInfo()
-  }, [loadInfo])
+  
+    let callback = (res) =>{
+      if(res.ok){
+        setInfo(res.body)
+      }
+    }
+    get_topology(callback)
+  }, [setInfo])
 
   
   if(!info){
