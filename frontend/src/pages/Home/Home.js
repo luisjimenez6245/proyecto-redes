@@ -5,6 +5,7 @@ import redux from 'reducers/utils/Redux'
 import NotFound from 'pages/404'
 import Users from 'pages/Users'
 import Devices from 'pages/Devices'
+import Topology from 'pages/Topology/Topology'
 
 import { Route, Switch } from 'react-router'
 
@@ -62,9 +63,9 @@ function Home(props) {
                         ></Devices>
                     </Route>
                     <Route>
-                        <NotFound
+                        <Topology
                             setActualPage={setSelectedPath}
-                        ></NotFound>
+                        ></Topology>
                     </Route>
                 </Switch>
             </HomeLayout>

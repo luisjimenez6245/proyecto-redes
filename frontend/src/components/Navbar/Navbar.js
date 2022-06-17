@@ -8,9 +8,9 @@ function Navbar(props) {
         let { restartUser, history, logout } = props
         let callback = () => {
             restartUser()
-            history.replace('/login');
         }
         logout(null, callback)
+        history.replace('/login');
     }
     useEffect(() => {
 

@@ -33,6 +33,10 @@ function Login({ history, login }) {
         login(email, password, callback, errorCallback)
     }
 
+    let onRegister = () => {
+        history.replace('/signup');
+    }
+
     return (
         <>
             <section className="hero is-fullheight is-light">
@@ -79,7 +83,9 @@ function Login({ history, login }) {
                                     <div className="field">
                                         <div className="field is-grouped is-grouped-centered">
                                             <p className="control">
-
+                                                <button className='button is-small is-link is-inverted' type='button' onClick={onRegister}>
+                                                     ¿Aún no tienes cuenta?
+                                                </button>
                                             </p>
                                         </div>
                                     </div>

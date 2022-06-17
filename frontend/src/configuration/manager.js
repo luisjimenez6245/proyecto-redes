@@ -5,7 +5,7 @@ function getApiUrl() {
     let url = process.env.REACT_APP_API_URL;
     if(!url){
         if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-            return 'http://localhost:80';
+            return 'http://localhost:81';
         } else {
             return 'https://plants-server.finalsa.app';
         }

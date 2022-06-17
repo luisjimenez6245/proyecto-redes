@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from 'App';
+import App from './App';
 import reportWebVitals from 'configuration/reportWebVitals';
 import 'finalsa-bulma-dark/css/bulma.min.css';
+
+
 
 ReactDOM.render(
   <React.StrictMode>

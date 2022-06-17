@@ -2,6 +2,7 @@ import { Route, Switch } from "react-router-dom";
 import Login from 'pages/Login'
 import Home from 'pages/Home'
 import Topology from "./Topology/Topology";
+import Registration from "pages/registration"
 
 function MainPage() {
   return (
@@ -12,10 +13,16 @@ function MainPage() {
             <Route path="/home">
               <Home></Home>
             </Route>
-            <Route path="/topoly">
+            <Route path="/topology">
               <Topology></Topology>
             </Route>
             <Route path="/login" exact>
+              <Login />
+            </Route>
+            <Route path="/signup" exact>
+              <Registration />
+            </Route>
+            <Route>
               <Login />
             </Route>
            
