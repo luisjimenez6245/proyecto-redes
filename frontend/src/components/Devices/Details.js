@@ -99,7 +99,7 @@ function DeviceDetails(props) {
 		<div className="column is-half">
                     <div className="field">
                         <label className="label">
-                            Tipo
+                            Valor a cambiar
                         </label>
                         <div className="control">
                             <select name="type" id="type" value={inputData.type} onChange={(e) => { selectOnChange(e) }}>
@@ -112,9 +112,7 @@ function DeviceDetails(props) {
                 </div>
 		<div className="column is-half">
                     <div className="field">
-                        <label className="label">
-                            Valor
-                        </label>
+                        <br></br>
                         <div className="control">
                             <input type="text"
                                 className="input"
@@ -127,11 +125,8 @@ function DeviceDetails(props) {
                 </div>
 		<div className="column is-half">
                     <div className="field">
-                        <label className="label">
-                            Valor
-                        </label>
                         <div className="control">
-                            <input type="button" onClick={ (e) => {buttonOnClick(e)}}  value ="subir" />
+                            <input type="button" onClick={ (e) => {buttonOnClick(e)}}  value ="Actualizar" />
                         </div>
                     </div>
                 </div>

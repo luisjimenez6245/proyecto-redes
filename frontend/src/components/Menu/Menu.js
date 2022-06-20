@@ -12,18 +12,28 @@ function Menu(props) {
                         </p>
                         <ul className="menu-list">
                             <li>
-                                <Link to='/home' className={`is-size-6 ${(path === '') ? 'is-active' : ''}`}>
-                                    Principal
+                                <Link to='/home' className={`is-size-6`}>
+                                    Configuracion
                                 </Link>
                             </li>
                             <li>
-                                <Link to='/home/users' className={`is-size-6 ${(path === 'users') ? 'is-active' : ''}`}>
+                                <Link to='/home/topology' className={`is-size-6`}>
+                                    Topologia
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to='/home/devices' className={`is-size-6`}>
+                                    Dispositivos
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to='/home/users' className={`is-size-6`}>
                                     Usuarios
                                 </Link>
                             </li>
                             <li>
-                                <Link to='/home/devices' className={`is-size-6 ${(path === 'devices') ? 'is-active' : ''}`}>
-                                    Dispositvos
+                                <Link to='/home/alerts' className={`is-size-6`}>
+                                    Alertas
                                 </Link>
                             </li>
                         </ul>

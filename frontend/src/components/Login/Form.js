@@ -39,7 +39,7 @@ function Login({ history, login }) {
 
     return (
         <>
-            <section className="hero is-fullheight is-light">
+            <section className="hero is-fullheight has-background-black">
                 <div className="hero-body">
                     <div className="container">
                         <div className="columns is-centered">
@@ -102,6 +102,7 @@ function Login({ history, login }) {
                     </div>
                 </div>
             </section>
+            
         </>
     )
 }

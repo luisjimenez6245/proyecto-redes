@@ -45,20 +45,6 @@ function UserDetails(props) {
                         </div>
                     </div>
                 </div>
-                <div className="column is-half">
-                    <div className="field">
-                        <label className="label">
-                            Tipo
-                        </label>
-                        <div className="control">
-                            <input type="text"
-                                className="input"
-                                value={data.type.name}
-                            >
-                            </input>
-                        </div>
-                    </div>
-                </div>
             </div>
         </>
     )

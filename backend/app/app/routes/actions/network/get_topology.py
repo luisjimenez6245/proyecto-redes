@@ -23,17 +23,6 @@ from models import Device, Interface
 router = APIRouter()
 
 
-@router.get("/get_topology")
-async def get_topology():
-    return neighborsSSH({
-        "host": getGateway(),
-        "username": "cisco",
-        "password": "cisco",
-        "device_type": "cisco_ios",
-        "secret": "cisco"
-    })
-
-
 async def get_old_topology() -> Dict[str, Device]:
     all_devices = await Device.objects.all()
     result = {}
@@ -129,8 +118,8 @@ async def get_topology_from_db():
     return body
 
 
-@router.post("/get_topology2/")
-async def get_topology2():
+@router.post("/get_topology/")
+async def get_topology():
     return await get_topology_from_db()
 
 

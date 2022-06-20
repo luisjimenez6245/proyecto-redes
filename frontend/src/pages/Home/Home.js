@@ -4,6 +4,7 @@ import { LoadingBar } from 'finalsa-react-components'
 import redux from 'reducers/utils/Redux'
 import NotFound from 'pages/404'
 import Users from 'pages/Users'
+import Alerts from 'pages/Alerts'
 import Devices from 'pages/Devices'
 import Topology from 'pages/Topology/Topology'
 
@@ -62,10 +63,20 @@ function Home(props) {
                             setActualPage={setSelectedPath}
                         ></Devices>
                     </Route>
-                    <Route>
+                    <Route path={`${path}/alerts`}>
+                        <Alerts
+                            setActualPage={setSelectedPath}
+                        ></Alerts>
+                    </Route>
+                    <Route path={`${path}/topology`}>
                         <Topology
                             setActualPage={setSelectedPath}
                         ></Topology>
+                    </Route>
+                    <Route>
+                        <NotFound
+                            setActualPage={setSelectedPath}
+                        ></NotFound>
                     </Route>
                 </Switch>
             </HomeLayout>

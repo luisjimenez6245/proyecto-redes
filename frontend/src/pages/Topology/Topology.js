@@ -74,7 +74,7 @@ function Topology({get_topology}) {
       hierarchical: false,
     },
     edges: {
-      color: "#000000",
+      color: "#FF0000",
     },
     height: "500px",
   };

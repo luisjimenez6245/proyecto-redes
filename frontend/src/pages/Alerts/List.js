@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useState } from "react"
 import { LoadingBar, TableModule } from 'finalsa-react-components'
 
 
-function UserList(props) {
+function ReportList(props) {
 
     const [data, setData] = useState(null)
-    const { getUserPagination, deleteUser, path } = props
+    const { getReportPagination, path } = props
 
     let loadData = useCallback((actualPage = 0) => {
         let callback = (res) => {
@@ -15,8 +15,8 @@ function UserList(props) {
                 console.log(res.body)
             }
         }
-        getUserPagination({ page: actualPage }, true, callback)
-    }, [getUserPagination])
+        getReportPagination({ page: actualPage }, true, callback)
+    }, [getReportPagination])
 
     let reload = () => {
         setData(null)
@@ -34,30 +34,19 @@ function UserList(props) {
             ></LoadingBar>
         )
     }
-    let deleteAction = (row) => {
-        let callback = (res) => {
-            if (res.ok) {
-                reload()
-            }
-            else {
-
-            }
-        }
-        deleteUser(row.id, callback)
-    }
 
     const cols = [
         {
-            selector: 'username',
-            name: "Usuario"
+            selector: 'id',
+            name: "Identificador"
         },
         {
-            selector: 'name',
-            name: "Nombre"
+            selector: 'action',
+            name: "Alerta"
         },
         {
-            selector: 'email',
-            name: "Correo"
+            selector: 'created_date',
+            name: "Fecha"
         }
     ]
 
@@ -67,7 +56,7 @@ function UserList(props) {
             <div className="columns ml-0 pl-0 pt-0 mt-0 is-multiline ">
                 <div className="column  ml-0 pl-0 pt-0 mt-0 is-full">
                     <div className="title ">
-                        Usuarios
+                        Alertas
                     </div>
                    
                 </div>
@@ -77,11 +66,8 @@ function UserList(props) {
                         onSelectedRow={(row) => {
                             props.history.replace(`${path}/details/${row.id}`);
                         }}
-                        title="Usuarios"
+                        title="Alertas"
                         data={data}
-                        onAdd={() => {
-                            props.history.replace(`${path}/form`);
-                        }}
                         onReload={reload}
                         totalPages={data.total_pages}
                         automatic={false}
@@ -94,4 +80,4 @@ function UserList(props) {
     )
 }
 
-export default (UserList)
+export default (ReportList)

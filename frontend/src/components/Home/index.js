@@ -7,7 +7,7 @@ function HomeLayout(props) {
 
     return (
         <>
-            <section className="hero is-fullheight-with-navbar  p-0 m-0">
+            <section className="hero is-fullheight-with-navbar  p-0 m-0 has-background-black">
                 <div className="hero-body  p-0 m-0">
                     <div className="container is-fluid m-0 p-0">
                         <div className="columns p-0 m-0">

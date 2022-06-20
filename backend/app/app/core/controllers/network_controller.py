@@ -29,7 +29,7 @@ def snmp_commands_create():
         "snmp-server view v3Read iso included",
         "snmp-server view v3Write iso include",
         "snmp-server group REDES v3 auth read v3Read write v3Write",
-        "snmp-server contact elferpro@gmail.com",
+        "snmp-server contact angelhdezv@gmail.com",
         "snmp-server location salonredes",
         f"snmp-server user admin REDES v3 auth sha administrador_snmp priv des56 administrador_snmp",
         "end"]

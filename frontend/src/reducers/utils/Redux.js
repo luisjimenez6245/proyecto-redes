@@ -4,12 +4,14 @@ import { withRouter } from "react-router";
 import User from 'actions/User'
 import UserType from 'actions/UserType'
 import Device from 'actions/Device'
+import Report from 'actions/Report'
 
 import Defs from 'actions/helpers/Defs'
 
 const user = new User();
 const device = new Device();
 const userType = new UserType();
+const report = new Report();
 
 
 const actions = [  
@@ -24,6 +26,10 @@ const actions = [
     {
         className: Device,
         object: device
+    },
+    {
+        className: Report,
+        object: report
     },
     ...Defs
 ]
