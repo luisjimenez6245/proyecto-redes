@@ -32,6 +32,21 @@ class Auth extends Action {
         return this.request("POST", "login", "", params, onLogin, this.onLogin);
     }
 
+    setSSH(callback, errorCallback) {
+        let onActivate = (res) => {
+            if (res.ok) {
+                if (res.body.status) {
+                    errorCallback(res.body)
+                } else {
+                    callback(res)
+                }
+            } else {
+                errorCallback(res.body)
+            }
+        }
+        return this.request("GET", "enable-ssh", "", null, onActivate, this.onActivate);
+    }
+
     getUser(callback, callbackLogout, getUsuarioDetails) {
         const sessionId = getFromStorage('id');
         let callbackValidate = (ok) => {

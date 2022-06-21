@@ -7,6 +7,7 @@ import Users from 'pages/Users'
 import Alerts from 'pages/Alerts'
 import Devices from 'pages/Devices'
 import Topology from 'pages/Topology/Topology'
+import Settings from 'pages/Settings'
 
 import { Route, Switch } from 'react-router'
 
@@ -74,9 +75,9 @@ function Home(props) {
                         ></Topology>
                     </Route>
                     <Route>
-                        <NotFound
+                        <Settings
                             setActualPage={setSelectedPath}
-                        ></NotFound>
+                        ></Settings>
                     </Route>
                 </Switch>
             </HomeLayout>

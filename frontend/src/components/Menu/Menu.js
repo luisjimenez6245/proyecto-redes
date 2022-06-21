@@ -8,7 +8,7 @@ function Menu(props) {
                 <div className="hero-head">
                     <aside className="menu ml-2">
                         <p className="menu-label">
-                            General
+                            Network-Manager-X
                         </p>
                         <ul className="menu-list">
                             <li>
